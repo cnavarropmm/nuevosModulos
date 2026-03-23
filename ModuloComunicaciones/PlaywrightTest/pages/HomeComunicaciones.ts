@@ -2,6 +2,7 @@ import { expect, Locator, Page } from "@playwright/test";
 
 export class HomeComunicaciones {
     
+    
     private readonly page: Page;
     readonly MenuProcesos: Locator;
     readonly SubmenuProcesos: Locator;
@@ -33,5 +34,9 @@ async navegarARevisionMensajes() {
 async navegarARevisionMarcaDigital(){
     await this.page.goto(`${process.env.BaseUrl}/revision-marca-digital`)
 }
+
+async navegarAMantencionParametros() {
+       await this.page.goto(`${process.env.BaseUrl}/mantencion-parametros`)
+    }
 
 }

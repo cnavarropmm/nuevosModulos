@@ -96,7 +96,6 @@ test.describe('Pruebas de humo Revision marca digital @smoke', () => {
             await expect(toastExito).toBeHidden();
             
         })
-
-
     })
+
 })

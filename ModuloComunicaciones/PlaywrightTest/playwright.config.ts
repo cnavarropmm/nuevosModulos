@@ -37,14 +37,14 @@ export default defineConfig({
             },
             
         },
- //       {
- //         name: 'firefox',
- //         testMatch: '**/*.spec.ts',
- //         use: { ...devices['Desktop Firefox'],
- //             storageState: AUTH_PATH,
- //          },
- //          dependencies: ['setup']
- //     },
+//        {
+//          name: 'firefox',
+//          testMatch: '**/*.spec.ts',
+//          use: { ...devices['Desktop Firefox'],
+//              
+//           },
+//
+//     },
  //     {
  //         name: 'webkit',
  //         testMatch: '**/*.spec.ts',
