@@ -7,6 +7,8 @@ node_modules/
 /playwright/.cache/
 /playwright/.auth/
 
+
 # Entorno
 .env
 .env.*
+/venv/

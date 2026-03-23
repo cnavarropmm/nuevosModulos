@@ -4,12 +4,14 @@ import { Login } from '../pages/Login'
 import { HomeComunicaciones } from '../pages/HomeComunicaciones'
 import { RevisionProcesos } from '../pages/RevisionProcesosPage'
 import { RevisionMensajeria } from '../pages/RevisionMensajeriaPage'
+import { RevisionMarcaDigital } from '../pages/RevisionMarcaDigital'
 
 type fixtures = {
     login : Login
     homecomunicaciones : HomeComunicaciones
     revisionProcesos: RevisionProcesos
     revisionMensajeria : RevisionMensajeria
+    revisionMarcaDigital: RevisionMarcaDigital
 }
 
 export const test  = base.extend<fixtures>({
@@ -32,6 +34,11 @@ export const test  = base.extend<fixtures>({
     revisionMensajeria: async({page}, use)=>{
         const revisionMensajeria = new RevisionMensajeria(page)
         return use(revisionMensajeria)
+    },
+
+    revisionMarcaDigital: async({page}, use)=>{
+        const revisionMarcaDigital = new RevisionMarcaDigital(page)
+        return use(revisionMarcaDigital)
     }
 
 })

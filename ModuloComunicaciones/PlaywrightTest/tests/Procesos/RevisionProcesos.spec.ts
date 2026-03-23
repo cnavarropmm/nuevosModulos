@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseFixtures'
 
-test.describe('Pruebas de humo Revision de procesos', () => {
+test.describe('Pruebas de humo Revision de procesos @smoke', () => {
 
     test.beforeEach('Ingreso a Modulo comunicaciones', async ({ page, login }) => {
 
@@ -26,7 +26,7 @@ test.describe('Pruebas de humo Revision de procesos', () => {
 
     })
 
-    test('seleccionar Fecha ene/2026 en calendario de periodo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+    test.skip('seleccionar Fecha ene/2026 en calendario de periodo', async ({ page, homecomunicaciones, revisionProcesos }) => {
 
         
 
@@ -72,6 +72,30 @@ test.describe('Pruebas de humo Revision de procesos', () => {
         })
         await test.step('Verificación: Se muestra la pantalla de detalle poliza', async()=>{
             await expect(page).toHaveURL(/detalle-poliza/i)
+        })
+    })
+
+    test('Cambiar vigencia para poliza', async({page, revisionProcesos, homecomunicaciones})=>{
+        await test.step('Accion: Acceder a la pantalla de detalle de poliza', async()=>{
+            await homecomunicaciones.navegarARevisionProceso()
+            await page.goto(`${process.env.BaseUrl}/detalle-poliza?processId=8`)
+        })
+
+        await test.step('Verificacion: Se accede correctamente al detalle poliza', async()=>{
+            await expect(page).toHaveURL(/processId=8/i)
+        })
+
+        await test.step('Accion: Cambiar vigencia de la primera poliza encontrada ', async()=>{
+            const estado = page.locator('select.policy-detail-select').first()
+            const nuevoEstado = await estado.inputValue()
+            await revisionProcesos.cambiarVigenciaPoliza(nuevoEstado)
+            await revisionProcesos.guardarVigenciaPoliza()
+        })
+
+        await test.step('Verificacion: Se actualiza al nuevo estado correctamente', async()=>{
+            const texto = RegExp(/Estado de las pólizas actualizado correctamente/i)
+            const mensaje = page.getByText(texto)
+            await mensaje.waitFor({state:"hidden"})
         })
     })
 

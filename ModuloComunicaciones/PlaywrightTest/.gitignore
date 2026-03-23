@@ -10,3 +10,4 @@ node_modules/
 # Entorno
 .env
 .env.*
+/venv/

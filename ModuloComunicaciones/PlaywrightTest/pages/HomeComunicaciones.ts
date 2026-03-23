@@ -30,4 +30,8 @@ async navegarARevisionMensajes() {
         await this.page.goto(`${process.env.BaseUrl}/revision-mensajeria`)
     }
 
+async navegarARevisionMarcaDigital(){
+    await this.page.goto(`${process.env.BaseUrl}/revision-marca-digital`)
+}
+
 }
