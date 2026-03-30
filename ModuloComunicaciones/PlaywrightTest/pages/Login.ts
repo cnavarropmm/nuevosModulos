@@ -9,6 +9,7 @@ export class Login {
     private readonly passInput : Locator
     private readonly loginButton : Locator
     private readonly BotonUsuario : Locator
+    private readonly BtnContinuarKeycloack: Locator
 
 
     constructor(page: Page){
@@ -16,7 +17,7 @@ export class Login {
         this.userInput = page.locator('#username')
         this.passInput = page.locator('#password')
         this.loginButton = page.getByRole('button', {name : /.*Sign In/i})
-        this.BotonUsuario = page.getByRole('button', { name: 'Perfil de usuario' })
+        this.BtnContinuarKeycloack = page.getByRole('button', {name: /Continuar/i})
 
     }
 
@@ -38,9 +39,10 @@ export class Login {
 
     async IngresarConPerfil(perfil: string){
         perfil = perfil.toLowerCase()
-        const selectorPerfil = this.page.getByRole('button', {name: new RegExp(perfil, 'i')}).first()
+        const selectorPerfil = this.page.locator('label', { hasText: new RegExp(perfil, 'i') }).first();
         await selectorPerfil.waitFor({state:'visible'})
-        await selectorPerfil.click()
-        await this.BotonUsuario.waitFor({state: 'visible'})
+        await selectorPerfil.check()
+        await this.BtnContinuarKeycloack.waitFor({state: 'attached'})
+        await this.BtnContinuarKeycloack.click()
     }
 }

@@ -18,7 +18,7 @@ test.describe('Pruebas de humo Mantencion de parametros @smoke', () => {
      * @description Validar acceso a la pantalla de mantecion de parametros
      * @precondition Acceso a la url de Mantencion de parametros
      */
-    test('Ingreso a pantalla de mantencion de parametros @nuevo', async({homecomunicaciones, page})=>{
+    test('Ingreso a pantalla de mantencion de parametros', async({homecomunicaciones, page})=>{
 
         allure.owner("QA");
         allure.tags("smoke");

@@ -26,34 +26,30 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
 
     })
 
-    test.skip('seleccionar Fecha ene/2026 en calendario de periodo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+    test('seleccionar Fecha ene/2026 en calendario de periodo @nuevo', async ({ page, homecomunicaciones, revisionProcesos }) => {
 
-        
+        await test.step('Accion: Accedemos a la url de revision Procesos', async () => {
+            await homecomunicaciones.navegarARevisionProceso()
+        })
 
-        await test.step('Accion: Ir a revision procesos', async () => {
+        await test.step('Accion: Presionamos sobre el calendario del periodo',async()=>{
+            await revisionProcesos.clickCalendarioBusqueda()
 
-            await homecomunicaciones.navegarARevisionProceso();
-
+        })
+        await test.step('Verificacion: se apertura panel para seleccion de mes', async () => {
+            const panel = page.getByRole('dialog', {name: 'Choose Date'})
+            await expect(panel).toBeVisible()
         });
 
-        const correctos =  page.locator('span[data-pc-section="label"]', { hasText: 'Correctos:' })
-        const valorInicial = await correctos.innerText()
-
-        test.step('Accion: Cambiar periodo y verificar refresco', async () => {
-            
-            await revisionProcesos.clickCalendarioBusqueda();
-            await revisionProcesos.seleccionarFecha('feb');
-            await expect(revisionProcesos.periodoInput).toHaveAttribute('aria-expanded', 'false', { timeout: 10000 })
-            await expect(correctos).not.toHaveText(valorInicial)
-        });
-
-        test.step('Verificacion: cambio de registros correctos', async () => {
-            const correctos = page.locator('span[data-pc-section="label"]', { hasText: 'Correctos:' })
-            const valorFinal = await correctos.innerText()
-            await expect(correctos).toHaveText(valorFinal)
-            
-        });
+        await test.step('Accion: Seleccionamos el mes', async()=>{
+            await revisionProcesos.seleccionarMes('feb')
+        })
+        await test.step('Verificacion: Se muestran los resultados correctos de febrero',async()=>{
+            const correctos =  page.locator('span.p-tag-label')
+            await expect(correctos).toContainText(/^correctos 2$/i)
+        })
     });
+
 
     test('Ingresar a detalle poliza', async({homecomunicaciones, revisionProcesos, page})=>{
 

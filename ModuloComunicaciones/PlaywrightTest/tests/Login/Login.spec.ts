@@ -4,7 +4,7 @@ import * as allure from 'allure-js-commons'
 import { Login } from '../../pages/Login'
 import {perfiles} from '../../data/perfilesData'
 
-test.describe("Ingreso con los distintos perfiles al modulo de comunicaciones @smoke", ()=>{
+test.describe("Ingreso con los distintos perfiles al modulo de comunicaciones @login", ()=>{
 
     test.beforeEach('Ingreso a la url de comunicaciones', async ({login})=>{
         login.IngresarAUrlLogin()
@@ -31,7 +31,7 @@ test.describe("Ingreso con los distintos perfiles al modulo de comunicaciones @s
         })
 
         await test.step('Verificación: Nos muestra la pagina para seleccionar el perfil', async()=>{
-            await expect(page).toHaveURL(/.*\/seleccion-perfil/i)
+            await expect(page).toHaveURL(/.*\/login-actions/i)
         })
 
         await test.step(`Seleccionamos el perfil ${perfil.name}`, async()=>{
