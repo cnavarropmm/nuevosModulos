@@ -4,7 +4,7 @@ import * as allure from 'allure-js-commons'
 import { Login } from '../../pages/Login'
 import {perfiles} from '../../data/perfilesData'
 
-test.describe("Ingreso con los distintos perfiles al modulo de comunicaciones @login", ()=>{
+test.describe("Ingreso con los distintos perfiles al modulo de comunicaciones @smoke", ()=>{
 
     test.beforeEach('Ingreso a la url de comunicaciones', async ({login})=>{
         login.IngresarAUrlLogin()

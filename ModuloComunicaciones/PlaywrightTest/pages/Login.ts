@@ -8,7 +8,6 @@ export class Login {
     private readonly userInput : Locator
     private readonly passInput : Locator
     private readonly loginButton : Locator
-    private readonly BotonUsuario : Locator
     private readonly BtnContinuarKeycloack: Locator
 
 
