@@ -1,6 +1,6 @@
 import { test, expect } from '../../fixtures/baseFixtures'
 
-test.describe('Pruebas de humo Revision de procesos @smoke', () => {
+test.describe('Pruebas de humo Revision de procesos', () => {
 
     test.beforeEach('Ingreso a Modulo comunicaciones', async ({ page, login }) => {
 
@@ -26,7 +26,7 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
 
     })
 
-    test('seleccionar Fecha ene/2026 en calendario de periodo @nuevo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+    test('seleccionar Fecha Feb/2026 en calendario de periodo @nuevo', async ({ page, homecomunicaciones, revisionProcesos }) => {
 
         await test.step('Accion: Accedemos a la url de revision Procesos', async () => {
             await homecomunicaciones.navegarARevisionProceso()
@@ -45,8 +45,10 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
             await revisionProcesos.seleccionarMes('feb')
         })
         await test.step('Verificacion: Se muestran los resultados correctos de febrero',async()=>{
-            const correctos =  page.locator('span.p-tag-label')
-            await expect(correctos).toContainText(/^correctos 2$/i)
+            const loadingIcon = page.locator('svg.p-datatable-loading-icon')
+            await expect(loadingIcon).toBeHidden()
+            const correctos =  page.locator('span.p-tag-label', {hasText: /Correctos/i}).first()
+            await expect(correctos).toContainText(/^Correctos: 2$/i)
         })
     });
 

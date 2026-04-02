@@ -4,31 +4,34 @@ export class HomeComunicaciones {
     
     
     private readonly page: Page;
+    readonly MenuComunicaciones: Locator;
     readonly MenuProcesos: Locator;
-    readonly SubmenuProcesos: Locator;
+    private readonly RevisionProcesos: Locator
     readonly chevronProcesos: Locator;
     private readonly PeriodoFecha: Locator
 
     constructor(page: Page) {
         this.page = page;
-        this.MenuProcesos = page.locator('li.layout-sidebar-item').filter({ hasText: /^Procesos$/ }).getByRole('button');
-        this.SubmenuProcesos = page.locator('a.layout-sidebar-viewlink, button.layout-sidebar-viewlink').filter({ hasText: 'Revisión de Procesos' });
+        this.MenuComunicaciones = page.locator('span', {hasText: /Comunicaciones/i});
+        this.MenuProcesos = page.locator('button', {hasText: 'Procesos'})
+        this.RevisionProcesos = page.locator('button.layout-sidebar-viewlink', { hasText: 'Revisión de Procesos' }).first();
         this.chevronProcesos = page.locator('ng-icon[name="remixArrowDownSLine"]');
         this.PeriodoFecha = page.locator('button.p-datepicker-dropdown')
         
     }
 
 async navegarARevisionProceso() {
-    const targetUrl = `${process.env.BaseUrl}/revision-procesos`;
-    await this.page.goto(targetUrl);
-    await this.PeriodoFecha.waitFor({state: "visible"})
-    await this.PeriodoFecha.waitFor({state: "attached"})
+    await this.MenuComunicaciones.click()
+    await this.MenuProcesos.click()
+    await this.RevisionProcesos.waitFor({state: "attached"})
+    await this.RevisionProcesos.click()
     const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
     await expect(loadingIcon).toBeHidden()
 }
 
 async navegarARevisionMensajes() {
-        await this.page.goto(`${process.env.BaseUrl}/revision-mensajeria`)
+        //await this.page.goto(`${process.env.BaseUrl}/revision-mensajeria`)
+
     }
 
 async navegarARevisionMarcaDigital(){
