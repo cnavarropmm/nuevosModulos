@@ -50,4 +50,10 @@ async guardarVigenciaPoliza() {
         const mensaje =  this.page.getByText(texto)
         await mensaje.waitFor({state:"visible"})
     }
+
+async IngresarAdetallePoliza(){
+    const PB_Aps =  this.page.locator('p-button[ptooltip="Ver Detalle Póliza"]').first()
+    await PB_Aps.waitFor({state: 'visible'})
+    await PB_Aps.click({force: true})
+}
 }

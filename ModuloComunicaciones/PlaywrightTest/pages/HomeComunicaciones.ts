@@ -3,43 +3,62 @@ import { expect, Locator, Page } from "@playwright/test";
 export class HomeComunicaciones {
     
     
-    private readonly page: Page;
-    readonly MenuComunicaciones: Locator;
-    readonly MenuProcesos: Locator;
-    private readonly RevisionProcesos: Locator
-    readonly chevronProcesos: Locator;
-    private readonly PeriodoFecha: Locator
+    private readonly page: Page
+    private readonly menuComunicaciones: Locator
+    private readonly menuProcesos: Locator
+    private readonly revisionProcesos: Locator
+    private readonly chevronProcesos: Locator
+    private readonly periodoFecha: Locator
+    private readonly revisionMensajeria: Locator
+    private readonly revisionMarca: Locator
+    private readonly menuMarcaDigital : Locator
+    private readonly mantencionParametros : Locator
 
     constructor(page: Page) {
         this.page = page;
-        this.MenuComunicaciones = page.locator('span', {hasText: /Comunicaciones/i});
-        this.MenuProcesos = page.locator('button', {hasText: 'Procesos'})
-        this.RevisionProcesos = page.locator('button.layout-sidebar-viewlink', { hasText: 'Revisión de Procesos' }).first();
+        this.menuComunicaciones = page.locator('span', {hasText: /Comunicaciones/i});
+        this.menuProcesos = page.locator('button', {hasText: 'Procesos'})
+        this.revisionProcesos = page.locator('button.layout-sidebar-viewlink', { hasText: 'Revisión de Procesos' }).first()
+        this.revisionMensajeria = page.locator('button.layout-sidebar-viewlink', {hasText: ' Mantención de mensajes '}).first()
         this.chevronProcesos = page.locator('ng-icon[name="remixArrowDownSLine"]');
-        this.PeriodoFecha = page.locator('button.p-datepicker-dropdown')
-        
+        this.periodoFecha = page.locator('button.p-datepicker-dropdown')
+        this.menuMarcaDigital = page.locator('button', {hasText: 'Marca Digital'})
+        this.revisionMarca = page.locator('button.layout-sidebar-viewlink', { hasText: ' Revisión marca ' }).first()
+        this.mantencionParametros = page.locator('button.layout-sidebar-viewlink', { hasText: ' Mantención de parámetros ' }).first()
     }
 
 async navegarARevisionProceso() {
-    await this.MenuComunicaciones.click()
-    await this.MenuProcesos.click()
-    await this.RevisionProcesos.waitFor({state: "attached"})
-    await this.RevisionProcesos.click()
+    await this.menuComunicaciones.click()
+    await this.menuProcesos.click()
+    await this.revisionProcesos.waitFor({state: "attached"})
+    await this.revisionProcesos.click()
     const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
     await expect(loadingIcon).toBeHidden()
 }
 
-async navegarARevisionMensajes() {
-        //await this.page.goto(`${process.env.BaseUrl}/revision-mensajeria`)
-
+async navegarAMantencionMensajes() {
+    await this.menuComunicaciones.click()
+    await this.menuProcesos.click()
+    await this.revisionMensajeria.waitFor({state: "attached"})
+    await this.revisionMensajeria.click()
+    const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
+    await expect(loadingIcon).toBeHidden()
     }
 
 async navegarARevisionMarcaDigital(){
-    await this.page.goto(`${process.env.BaseUrl}/revision-marca-digital`)
+    await this.menuComunicaciones.click()
+    await this.menuMarcaDigital.click()
+    await this.revisionMarca.click()
+    const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
+    await expect(loadingIcon).toBeHidden()
 }
 
 async navegarAMantencionParametros() {
-       await this.page.goto(`${process.env.BaseUrl}/mantencion-parametros`)
+       await this.menuComunicaciones.click()
+       await this.menuMarcaDigital.click()
+       await this.mantencionParametros.click()
+       const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
+       await expect(loadingIcon).toBeHidden()
     }
 
 }

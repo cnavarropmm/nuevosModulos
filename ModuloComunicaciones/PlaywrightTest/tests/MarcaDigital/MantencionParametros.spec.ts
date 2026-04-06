@@ -24,7 +24,7 @@ test.describe('Pruebas de humo Mantencion de parametros @smoke', () => {
         allure.tags("smoke");
         allure.severity("critical");
 
-        await test.step('Accion: Ingresar a pantalla mantencion-parametros', async()=>{
+        await test.step('Accion: Ingresar a pantalla mantencion-parametros ', async()=>{
            await homecomunicaciones.navegarAMantencionParametros()
         })
         await test.step('Verificacion: Se accede a la pantalla correctamente', async()=>{

@@ -24,18 +24,11 @@ test.describe('Pruebas de humo Revision marca digital @smoke', () => {
         allure.tags("smoke");
         allure.severity("critical");
 
-        await test.step('Accion: Ingresar a pagina de revision procesos', async()=>{
-            await homecomunicaciones.navegarARevisionProceso()
+        await test.step('Accion: Ingresamos a la pagina de revision de marca digital', async()=>{
+            await homecomunicaciones.navegarARevisionMarcaDigital()
         })
-
-        await test.step('Verificación: Se accede a la pantalla de revision procesos', async()=>{
-            await expect(page).toHaveURL(/revision-procesos/i)
-        })
-
-        await test.step('Accion: Acceder a la pagina de revision marca digital', async()=>{
-               await homecomunicaciones.navegarARevisionMarcaDigital()
-        })
-        await test.step('Verificacion: Se muestra pantalla de revision marca digital', async()=>{
+   
+        await test.step('Verificacion: Se accede correctamente a la  pantalla de revision marca digital', async()=>{
             await expect(page).toHaveURL(/revision-marca-digital/i)
         })
      
@@ -46,7 +39,7 @@ test.describe('Pruebas de humo Revision marca digital @smoke', () => {
      * @description Realizar busqueda por rut
      * @precondition Acceso a la url de revision marca digital
      */
-    test('Busqueda de marca digital por rut', async({homecomunicaciones, page, revisionMarcaDigital})=>{
+    test('Busqueda de marca digital por rut ', async({homecomunicaciones, page, revisionMarcaDigital})=>{
 
         allure.owner("QA");
         allure.tags("smoke");
@@ -59,8 +52,15 @@ test.describe('Pruebas de humo Revision marca digital @smoke', () => {
             await expect(page).toHaveURL(/revision-marca-digital/)
         })
 
+        await test.step('Cambiamos el mes de busqueda desde marzo', async()=>{
+            await revisionMarcaDigital.cambiarAmesAnterior()
+        })
+
         await test.step('Accion: Ingresar rut en la casilla', async()=>{
             await revisionMarcaDigital.IngresarRutBusqueda('3747508-4')
+        })
+        await test.step('Accion: Presionamos el boton buscar', async()=>{
+            await revisionMarcaDigital.AccionBuscar()
         })
         await test.step('Verificacion: se muestra rut buscado en historial', async()=>{
             const fila = page.locator('tr', {hasText: /3747508-4/})

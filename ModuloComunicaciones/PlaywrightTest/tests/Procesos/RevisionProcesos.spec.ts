@@ -1,6 +1,7 @@
 import { test, expect } from '../../fixtures/baseFixtures'
+import * as allure from 'allure-js-commons'
 
-test.describe('Pruebas de humo Revision de procesos', () => {
+test.describe('Pruebas de humo Revision de procesos @smoke', () => {
 
     test.beforeEach('Ingreso a Modulo comunicaciones', async ({ page, login }) => {
 
@@ -13,7 +14,17 @@ test.describe('Pruebas de humo Revision de procesos', () => {
         await expect(page.locator('app-sidebar')).toBeVisible({ timeout: 30000 });
     });
 
+    /**
+     * @testId TC-RevisionProcesos-001
+     * @description Acceder a la pantalla de revision procesos
+     * @precondition Acceso a la url de revision procesos
+     */
+
     test('Ingresar a revision procesos', async ({ homecomunicaciones, page }) => {
+        
+        allure.owner("QA");
+        allure.tags("smoke");
+        allure.severity("critical");
 
         await test.step('Accion: Accedemos a la url de revision Procesos', async () => {
             await homecomunicaciones.navegarARevisionProceso()
@@ -26,7 +37,17 @@ test.describe('Pruebas de humo Revision de procesos', () => {
 
     })
 
-    test('seleccionar Fecha Feb/2026 en calendario de periodo @nuevo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+    /**
+     * @testId TC-RevisionProcesos-002
+     * @description Seleccionar una fecha para realizar una busqueda
+     * @precondition Acceso a la url de revision procesos
+     */
+
+    test('seleccionar Fecha Feb/2026 en calendario de periodo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+
+        allure.owner("QA");
+        allure.tags("smoke");
+        allure.severity("critical");
 
         await test.step('Accion: Accedemos a la url de revision Procesos', async () => {
             await homecomunicaciones.navegarARevisionProceso()
@@ -52,8 +73,17 @@ test.describe('Pruebas de humo Revision de procesos', () => {
         })
     });
 
+    /**
+     * @testId TC-RevisionProcesos-003
+     * @description Ingresar y visualizar el detalle de las polizas
+     * @precondition Acceso a la url de revision procesos
+     */
 
-    test('Ingresar a detalle poliza', async({homecomunicaciones, revisionProcesos, page})=>{
+    test('Ingresar a detalle poliza ', async({homecomunicaciones, revisionProcesos, page})=>{
+
+        allure.owner("QA");
+        allure.tags("smoke");
+        allure.severity("critical");
 
         await test.step('Accion: Ingresar a pagina de revision procesos', async()=>{
             await homecomunicaciones.navegarARevisionProceso()
@@ -63,20 +93,39 @@ test.describe('Pruebas de humo Revision de procesos', () => {
             await expect(page).toHaveURL(/revision-procesos/i)
         })
 
+        await test.step('Accion: Presionamos sobre el calendario del periodo',async()=>{
+            await revisionProcesos.clickCalendarioBusqueda()
+        })
+
+        await test.step('Accion: Seleccionamos el mes', async()=>{
+            await revisionProcesos.seleccionarMes('mar')
+        })
+
         await test.step('Accion: presionar sobre una de las opciones para ingresar al detalle', async()=>{
-            const PB_Aps =  page.getByRole('button', {name: /Potenciales Beneficiarios/i})
-            await PB_Aps.waitFor({state: 'visible'})
-            await PB_Aps.click({force: true})
+            await revisionProcesos.IngresarAdetallePoliza()
         })
         await test.step('Verificación: Se muestra la pantalla de detalle poliza', async()=>{
             await expect(page).toHaveURL(/detalle-poliza/i)
         })
     })
 
+    /**
+     * @testId TC-RevisionProcesos-004
+     * @description Ingresar y visualizar el detalle de las polizas
+     * @precondition Acceso a la url de revision procesos
+     */
+
     test('Cambiar vigencia para poliza', async({page, revisionProcesos, homecomunicaciones})=>{
+
+        allure.owner("QA");
+        allure.tags("smoke");
+        allure.severity("critical");
+        
         await test.step('Accion: Acceder a la pantalla de detalle de poliza', async()=>{
             await homecomunicaciones.navegarARevisionProceso()
-            await page.goto(`${process.env.BaseUrl}/detalle-poliza?processId=8`)
+            await revisionProcesos.clickCalendarioBusqueda()
+            await revisionProcesos.seleccionarMes('mar')
+            await revisionProcesos.IngresarAdetallePoliza()
         })
 
         await test.step('Verificacion: Se accede correctamente al detalle poliza', async()=>{

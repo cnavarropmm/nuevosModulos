@@ -24,10 +24,10 @@ test.describe('Pruebas de humo Revision de mensajes @smoke', () => {
         allure.severity("critical");
 
         await test.step('Accion: ingresar a revision mensajes', async()=>{
-            await page.goto(`${process.env.BaseUrl}/revision-mensajeria`)
+            await homecomunicaciones.navegarAMantencionMensajes()
         })
         await test.step('Verificacion: Se accede a la pagina correctamente', async()=>{
-            await homecomunicaciones.navegarARevisionMensajes()
+            await expect(page).toHaveURL(/revision-mensajeria/i)
         })
     })
 
@@ -43,7 +43,7 @@ test.describe('Pruebas de humo Revision de mensajes @smoke', () => {
         allure.severity("critical");
 
         await test.step('Accion: ingresar a revision mensajes', async()=>{
-            await homecomunicaciones.navegarARevisionMensajes()
+            await homecomunicaciones.navegarAMantencionMensajes()
         })
         await test.step('Accion: Presionar sobre opcion editar mensaje', async()=>{
             await revisionMensajeria.clickBtnEditarMensaje()

@@ -11,7 +11,7 @@ export class RevisionMensajeria {
     
     constructor(page: Page) {
         this.page= page
-        this.btnEditar = this.page.locator('button.p-ripple.p-button.p-button-danger').first();
+        this.btnEditar = this.page.locator('button:has(span.pi-pencil)').first()
         this.btnBuscar = this.page.getByRole('button' ,{name: /Buscar/i})
         
 
