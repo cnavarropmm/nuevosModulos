@@ -79,7 +79,7 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
      * @precondition Acceso a la url de revision procesos
      */
 
-    test('Ingresar a detalle poliza ', async({homecomunicaciones, revisionProcesos, page})=>{
+    test('Ingresar a detalle poliza @nuevo', async({homecomunicaciones, revisionProcesos, page})=>{
 
         allure.owner("QA");
         allure.tags("smoke");
@@ -121,7 +121,7 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
         allure.tags("smoke");
         allure.severity("critical");
         
-        await test.step('Accion: Acceder a la pantalla de detalle de poliza', async()=>{
+        await test.step('Accion: Acceder a la pantalla de detalle de poliza ', async()=>{
             await homecomunicaciones.navegarARevisionProceso()
             await revisionProcesos.clickCalendarioBusqueda()
             await revisionProcesos.seleccionarMes('mar')
