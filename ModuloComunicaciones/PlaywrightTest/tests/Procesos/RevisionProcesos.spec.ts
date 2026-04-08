@@ -68,8 +68,9 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
         await test.step('Verificacion: Se muestran los resultados correctos de febrero',async()=>{
             const loadingIcon = page.locator('svg.p-datatable-loading-icon')
             await expect(loadingIcon).toBeHidden()
-            const correctos =  page.locator('span.p-tag-label', {hasText: /Correctos/i}).first()
-            await expect(correctos).toContainText(/^Correctos: 2$/i)
+            const correctos =  page.locator('div.flex-col', { has: page.locator('text=Correctos') })
+            const Cantidad = correctos.locator('span.text-2xl')
+            await expect(Cantidad).toHaveText('2')
         })
     });
 
@@ -79,7 +80,7 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
      * @precondition Acceso a la url de revision procesos
      */
 
-    test('Ingresar a detalle poliza @nuevo', async({homecomunicaciones, revisionProcesos, page})=>{
+    test('Ingresar a detalle poliza', async({homecomunicaciones, revisionProcesos, page})=>{
 
         allure.owner("QA");
         allure.tags("smoke");

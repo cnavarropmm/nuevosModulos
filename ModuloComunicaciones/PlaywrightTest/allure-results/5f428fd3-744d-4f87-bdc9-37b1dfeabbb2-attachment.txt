@@ -1,1 +1,0 @@
-Conexión a PostgreSQL establecida con éxito.
