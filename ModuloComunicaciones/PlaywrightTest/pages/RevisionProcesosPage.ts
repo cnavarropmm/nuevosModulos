@@ -27,6 +27,10 @@ async clickCalendarioBusqueda() {
 
 async seleccionarMes(mes: string) {
     const panel = this.page.getByRole('dialog', {name: 'Choose Date'})
+    const seleccionAño = this.page.getByLabel('Choose Year')
+    await seleccionAño.click()
+    const año2026 = this.page.locator('span.p-datepicker-year', { hasText: '2026' })
+    await año2026.click()
     await panel.getByText(mes).click()
     await expect(panel).toBeHidden()
     }
