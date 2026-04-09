@@ -13,6 +13,8 @@ export class HomeComunicaciones {
     private readonly revisionMarca: Locator
     private readonly menuMarcaDigital : Locator
     private readonly mantencionParametros : Locator
+    private readonly menuCanalDistribucion: Locator
+    private readonly reporteRespuestaPensionado: Locator
 
     constructor(page: Page) {
         this.page = page;
@@ -25,6 +27,8 @@ export class HomeComunicaciones {
         this.menuMarcaDigital = page.locator('button', {hasText: 'Marca Digital'})
         this.revisionMarca = page.locator('button.layout-sidebar-viewlink', { hasText: ' Revisión marca ' }).first()
         this.mantencionParametros = page.locator('button.layout-sidebar-viewlink', { hasText: ' Mantención de parámetros ' }).first()
+        this.menuCanalDistribucion = page.locator('button', {hasText: /Canal de Distribución/i})
+        this.reporteRespuestaPensionado = page.locator('button', {hasText: / Reporte de respuesta pensionados /i})
     }
 
 async navegarARevisionProceso() {
@@ -60,5 +64,14 @@ async navegarAMantencionParametros() {
        const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
        await expect(loadingIcon).toBeHidden()
     }
+
+async navegarAReporteRespuestaPensinados(){
+    await this.menuComunicaciones.click()
+    await this.menuCanalDistribucion.click()
+    await this.reporteRespuestaPensionado.click()
+    const loadingIcon = this.page.locator('svg.p-datatable-loading-icon')
+    await expect(loadingIcon).toBeHidden()
+
+}
 
 }

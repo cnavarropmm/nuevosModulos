@@ -43,7 +43,7 @@ test.describe('Pruebas de humo Revision de procesos @smoke', () => {
      * @precondition Acceso a la url de revision procesos
      */
 
-    test('seleccionar Fecha Feb/2026 en calendario de periodo', async ({ page, homecomunicaciones, revisionProcesos }) => {
+    test('seleccionar Fecha Feb/2026 en calendario de periodo @nuevo', async ({ page, homecomunicaciones, revisionProcesos }) => {
 
         allure.owner("QA");
         allure.tags("smoke");
